@@ -1,22 +1,25 @@
 using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation;
 
 [TaskCategory("Battle")]
 public class MoveAction : Action
 {
 	public SharedString MoveAnimationName;
 	public SharedBool IsMoveAnimStart;
+    public SharedBool IsAttackAnimStart;
 
-	[SerializeField] protected float moveSpeed;
+    [SerializeField] protected float moveSpeed;
 	protected Animator animator;
+	
 
     public override void OnAwake()
     {
 		animator = GetComponent<Animator>();
     }
 
-	public override TaskStatus OnUpdate()
+    public override TaskStatus OnUpdate()
 	{
 		if (IsMoveAnimStart.Value.Equals(false)) MoveAnimation();
 		Move();
@@ -25,15 +28,15 @@ public class MoveAction : Action
 
 	private void Move()
 	{
-		transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+		if (IsAttackAnimStart.Value.Equals(true)) return;
 
+		transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
 		if(Camera.main.WorldToViewportPoint(transform.position).x > 1f)
 		{
 			Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 			pos.x = 1f;
 			transform.position = pos;
         }
-
 	}
 
 	private void MoveAnimation()
@@ -43,5 +46,6 @@ public class MoveAction : Action
 		// 각 테스크 별로 작동을 해야하니 -> 공용 변수를 사용하여 조절
 		animator.CrossFade(MoveAnimationName.Value, 0.01f);
 		IsMoveAnimStart.Value = true;
-	}
+        IsAttackAnimStart.Value = false;
+    }
 }
