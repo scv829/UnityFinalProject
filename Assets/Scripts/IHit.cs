@@ -9,5 +9,6 @@ public interface IHit
     /// <param name="requester">요청자</param>
     /// <param name="type">공격의 종류</param>
     /// <param name="damage">데미지</param>
-    public void TakeDamage(GameObject requester, DamageType type, float damage);
+    /// <returns>사망 여부</returns>
+    public bool TakeDamage(GameObject requester, DamageType type, float damage);
 }
