@@ -12,6 +12,7 @@ public class CharacterSO : ScriptableObject
     [SerializeField] string character_description;
     [SerializeField] AttackType character_type;
     [SerializeField] float hp;
+    [SerializeField] float damage;
     [SerializeField] List<Skill> character_skill;
     
     #region 프로퍼티
@@ -22,6 +23,7 @@ public class CharacterSO : ScriptableObject
     public string CharacterDescription => character_description;
     public AttackType CharacterType => character_type;
     public float HP => hp;
+    public float Damage => damage;
     public List<Skill> CharacterSkill => character_skill;
     #endregion
 

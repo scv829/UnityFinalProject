@@ -18,5 +18,6 @@ MonoBehaviour:
   character_description: 
   character_type: 0
   hp: 100
+  damage: 10
   character_skill:
   - {fileID: 11400000, guid: ba080cc1470daa743ad0fcaed26e0ea8, type: 2}

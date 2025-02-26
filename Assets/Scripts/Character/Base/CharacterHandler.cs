@@ -16,9 +16,11 @@ public class CharacterHandler : MonoBehaviour, IHit
         currentHp = characterData.HP;
     }
 
-    public void TakeDamage(GameObject requester, BattleEnum.DamageType type, float damage)
+    public bool TakeDamage(GameObject requester, BattleEnum.DamageType type, float damage)
     {
         currentHp -= damage;
+
+        return IsDied;
     }
 
     /// <summary>
@@ -26,4 +28,10 @@ public class CharacterHandler : MonoBehaviour, IHit
     /// </summary>
     public bool IsDied => currentHp <= 0;
 
+    public float Damage => characterData.Damage;
+
+    private void Update() 
+    {
+        if (IsDied) { gameObject.layer = LayerMask.NameToLayer("Die"); }
+    }
 }
