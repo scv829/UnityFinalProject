@@ -11,8 +11,10 @@ public class DieAction : Action
 	public SharedLayerMask DieLayer;
 	[Tooltip("사망했을 때 동작할 애니메이션")]
 	public SharedString DieAnimationName;
+    [Tooltip("살아 있는지 확인 여부")]
+    public SharedBool IsAlive;
 
-	protected Animator animator;
+    protected Animator animator;
 
     public override void OnAwake()
     {
@@ -26,8 +28,10 @@ public class DieAction : Action
 		// 사망 레이어로 변경
 		ChangeDieLayer();
 
+		IsAlive.Value = false;
+
 		// 행동 트리의 반복을 중단하기 위해 실패 반환
-		return TaskStatus.Failure;
+		return TaskStatus.Success;
 	}
 
 	private void StartDieAnimation() => animator.CrossFade(DieAnimationName.Value, 0.01f);
