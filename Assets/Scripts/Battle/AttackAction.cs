@@ -10,8 +10,6 @@ public class AttackAction : Action
     public SharedGameObject Target;
     [Tooltip("이동 애니메이션 실행 여부")]
     public SharedBool IsMoveAnimStart;
-    [Tooltip("공격 애니메이션 실행 여부")]
-    public SharedBool IsAttackAnimStart;
     [Tooltip("공격 애니메이션 이름")]
     public SharedString AttackAnimationName;
 
@@ -27,7 +25,7 @@ public class AttackAction : Action
 
     public override TaskStatus OnUpdate()
 	{
-        if (!IsAttackAnimStart.Value) { StartAttackAnimation(); }
+        StartAttackAnimation();
 
 		return Attack() ?  TaskStatus.Success : TaskStatus.Failure;
 	}
@@ -54,8 +52,8 @@ public class AttackAction : Action
 
     private void StartAttackAnimation()
     {
+        // TODO : 현재 그냥 공격을 애니메이션을 반복하는데 해당 행동을 공격 속도에 맞춰서 해야함
         animator.CrossFade(AttackAnimationName.Value, 0.01f);
-        IsAttackAnimStart.Value = true;
         IsMoveAnimStart.Value = false;
     }
 }

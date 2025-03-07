@@ -34,7 +34,7 @@ public class DieAction : Action
 		return TaskStatus.Success;
 	}
 
-	private void StartDieAnimation() => animator.CrossFade(DieAnimationName.Value, 0.01f);
+	private void StartDieAnimation() => animator.CrossFade(DieAnimationName.Value, 0f);
 
 	private void ChangeDieLayer() => gameObject.layer = DieLayer.Value;
 

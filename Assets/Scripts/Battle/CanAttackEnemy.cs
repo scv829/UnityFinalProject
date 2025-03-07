@@ -45,8 +45,6 @@ public class CanAttackEnemy : Conditional
         // 이미 공격타겟이 있으면 확인하는 로직 실행 x
         if (Target.Value != null) return;
 
-        Debug.Log("연산은 하냐");
-
         for(int i = 0; i < characters.Length; i++) characters[i] = null;
 
         // 공격 범위

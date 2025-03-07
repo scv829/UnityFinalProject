@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e93f329104279fd4b865841ed9a904e9, type: 3}
-  m_Name: Test_CharacterData
+  m_Name: Test_MonsterData
   m_EditorClassIdentifier: 
   character_id: 0
   character_name: Test
   character_star: 1
   character_description: 
   character_type: 0
-  hp: 100
-  damage: 10
+  hp: 1000
+  damage: 1
   character_skill:
   - {fileID: 11400000, guid: ba080cc1470daa743ad0fcaed26e0ea8, type: 2}
-  - {fileID: 11400000, guid: 006578b8566003d459353807649013ae, type: 2}
