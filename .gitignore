@@ -74,3 +74,6 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 /Assets/Plugins
 /Assets/Gizmos
+/Assets/Externals
+/Assets/StreamingAssets/google-services-desktop.json
+/Assets/StreamingAssets/google-services.json
