@@ -4,22 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// 캐릭터 생성 매니저
+/// 몬스터 및 플레이어 캐릭터 생성하는 매니저
 /// </summary>
 public class SpawnManager : MonoBehaviour
 {
-    // TODO
-    // 캐릭터 생성 및 배치
-    // 1. 아마 생성 요청을 하고 정보를 넘겨준다
-    // 2. 정보에는 해당 스테이지의 수, 유저의 캐릭터, 상대 캐릭터
-    // 3. 유저의 캐릭터를 스폰 위치에 배치
-    // 4. 상대 캐릭터를 스폰 위치에 배치
-    // 5. BattleManage에게 전투 시작 요청
 
     [Header("캐릭터")]
     [SerializeField] CharacterContainerSO containerSO;
-    [SerializeField, Tooltip("x : Id, Y : 수")] List<Vector2> players;
-    [SerializeField, Tooltip("x : Id, Y : 수")] List<Vector2> enemies;
+    [SerializeField] List<CharacterHandler> players;
+    [SerializeField] List<CharacterHandler> enemies;
 
     [Header("플레이어 생성 위치")]
     [SerializeField] SpawnPos[] playerSpawnPos;
@@ -35,27 +28,45 @@ public class SpawnManager : MonoBehaviour
 
         // 2. Database에서 가져온 친구들의 데이터를 불러오기?
         // 3. 불러온 캐릭터들의 데이터 설정
-        foreach(var item in players)
-        {
-            for (int i = 0; i < item.y; i++) SetPlayerCharacter((int)item.x);
-        }
+    }
 
-        foreach (var item in enemies)
+    public void PlayerInit(List<long> playerCharacters)
+    {
+        foreach (var item in players)
         {
-            for (int i = 0; i < item.y; i++) SetEnemyCharater((int)item.x);
+           // for (int i = 0; i < item.y; i++) SetPlayerCharacter((int)item);
         }
     }
 
+    public void EnemyInit(List<long> enemyCharacters)
+    {
+        foreach (var item in enemyCharacters)
+        {
+            SetEnemyCharater(item);
+        }
+    }
+
+    /// <summary>
+    /// 플레이어 캐릭터 세팅 함수
+    /// </summary>
+    /// <param name="index">캐릭터 ID</param>
     private void SetPlayerCharacter(int index)
     {
         CharacterHandler character = Instantiate(containerSO.GetCharacter(index));
         character.Init("Player");
+        // 위치 설정을 어떻게?
         character.gameObject.transform.position = playerSpawnPos[0].GetPos();
     }
 
-    private void SetEnemyCharater(int index)
+    /// <summary>
+    /// 적 캐릭터 세팅 함수
+    /// </summary>
+    /// <param name="index">캐릭터 ID</param>
+    private void SetEnemyCharater(long index)
     {
-        CharacterHandler character = Instantiate(containerSO.GetCharacter(index));
+        CharacterHandler character = Instantiate(containerSO.GetCharacter((int)index));
+        character.SetData();
+        
         character.gameObject.transform.position = EnemySpawnPos[2].GetPos();
         character.Init("Enemy");
     }
