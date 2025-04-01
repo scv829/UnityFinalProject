@@ -1,11 +1,6 @@
 using BehaviorDesigner.Runtime;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 공통으로 사용할 캐릭터 핸들러
@@ -63,20 +58,21 @@ public class CharacterHandler : MonoBehaviour, IHit
 
     public float Damage => characterData.Damage;
 
-    private void Update() 
+    private void Update()
     {
-        if (IsDied) {
-            {
-                gameObject.layer = LayerMask.NameToLayer("Die");
-                animator.CrossFade("Die", 0f);
-            }
+        if (IsDied)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Die");
+            animator.CrossFade("Die", 0f);
+
+            NotifyDeath(); // 스테이지 매니저에게 사망 알림
         }
         CoolTime();
     }
 
     private void CoolTime()
     {
-        for(int i = 0; i < currentCoolTimeList.Count; i++)
+        for (int i = 0; i < currentCoolTimeList.Count; i++)
         {
             if (currentCoolTimeList[i] <= 0f) continue;
             currentCoolTimeList[i] -= Time.deltaTime;
@@ -113,11 +109,31 @@ public class CharacterHandler : MonoBehaviour, IHit
 
     public void Action() => characterData.CharacterSkill[index].Action(this, target);
 
+    /// <summary>
+    /// 캐릭터 생싱 초기화 함수
+    /// </summary>
+    /// <param name="tag">아군/적군 식별</param>
     public void Init(string tag)
     {
         gameObject.tag = tag;
         render.flipX = gameObject.CompareTag("Enemy");
+
+        // 여기서 데이터를 세팅해야 하나?
+        // 
+        
+
         isInitComplete = true;
+    }
+
+    public void SetData()
+    {
+        // 정보 세팅
+    }
+
+    private void NotifyDeath()
+    {
+        // StageManager의 캐릭터 사망 처리 호출
+        StageManager.Instance.OnCharacterDeath(this, gameObject.tag);
     }
 
     public bool IsInitComplete => isInitComplete;
