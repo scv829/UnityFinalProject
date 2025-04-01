@@ -2247,6 +2247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135512489}
   - component: {fileID: 1135512488}
+  - component: {fileID: 1135512490}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -2266,8 +2267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b956f180be3ca4a900cb2b2c1084e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  playerPick: 
+  id: 1
+  playerPick: 01000000
 --- !u!4 &1135512489
 Transform:
   m_ObjectHideFlags: 0
@@ -2283,6 +2284,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1135512490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135512487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bef3e7b6741fb4a8d0f8cec03103e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1158741013
 GameObject:
   m_ObjectHideFlags: 0

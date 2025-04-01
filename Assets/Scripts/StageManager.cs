@@ -83,12 +83,13 @@ public class StageManager : MonoBehaviour
 
     private void GetPlayerData()
     {
-        data = DataManager.Database.RootReference.Child($"User/1/Characters");
-
         // DeckManager가 UI를 담당하고 있다가 들어온 결과를 DataManager의 리스트에 전달
         // 전달 후 GetPlayerData()에서 리스트를 전달 받음
         // 리스트는 튜플로 id와 데이터로 이루어져 있음
         // 해당 내용을 기반으로 player 캐릭터를 생성
+
+
+        DataManager.Instance.GetPlayerCharacterData();
 
         totalPlayer = currentPlayer = playerCharacters.Count;
     }
