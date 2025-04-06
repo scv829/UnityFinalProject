@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4108452871360395107}
   - component: {fileID: 4108452871360395113}
   - component: {fileID: 4108452871360395114}
+  - component: {fileID: -7102654378141252036}
   m_Layer: 6
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -122,16 +123,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c190eb84863f84593b1af216bff605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 82f43f3a2722578458a579b4696dd3ec, type: 2}
   animator: {fileID: 0}
   render: {fileID: 0}
   bt: {fileID: 0}
+  characterData: {fileID: 11400000, guid: 82f43f3a2722578458a579b4696dd3ec, type: 2}
+  HP: 0
+  ATK: 0
+  DEF: 0
+  moveSpeed: 0
   currentHp: 0
   isInitComplete: 0
-  index: 0
-  target: {fileID: 0}
-  coolTimeList: []
-  currentCoolTimeList: []
+  skillHandler: {fileID: 0}
+  armors:
+  - {fileID: 11400000, guid: ce935798f86282749a743d1ac0bf6ad8, type: 2}
+  - {fileID: 11400000, guid: b2e7cbd515a44ba4fb36647519c97505, type: 2}
+  - {fileID: 11400000, guid: 787aec7d00d2b5e44adddd2113db6dd1, type: 2}
+  - {fileID: 11400000, guid: 10f2867e1dd6f9b4cbe9c1b68c6c39c3, type: 2}
+  - {fileID: 11400000, guid: 77f0f3687f7d8b74c84ab4de66480819, type: 2}
+  weapon: {fileID: 11400000, guid: 7dd53a6aa9add6043b91dfd0d684ff64, type: 2}
 --- !u!61 &4108452871360395107
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -239,7 +248,7 @@ MonoBehaviour:
         Attact Target","Instant":true,"SharedGameObjectTarget":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true,"Tooltip":"\uacf5\uaca9\ud560
         \ub300\uc0c1"}},{"Type":"AttackAction","NodeData":{"Offset":"(1.47669983,348.432)"},"ID":23,"Name":"Attack
         Action","Instant":true,"SharedGameObjectTarget":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true,"Tooltip":"\uacf5\uaca9\ud560
-        \ub300\uc0c1"},"SharedBoolIsMoveAnimStart":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsMove","IsShared":true,"BooleanmValue":false},"SharedStringAttackAnimationName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"Attack"}},{"Type":"AnimationEndAction","NodeData":{"Offset":"(189.6505,231.3606)"},"ID":24,"Name":"Animation
+        \ub300\uc0c1"},"SharedBoolIsMoveAnimStart":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsMove","IsShared":true,"BooleanmValue":false}},{"Type":"AnimationEndAction","NodeData":{"Offset":"(189.6505,231.3606)"},"ID":24,"Name":"Animation
         End Action","Instant":true,"SingleanimTime":0}]}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(323.749969,206.874969)","Comment":"\uc774\ub3d9
         \uc0c1\ud0dc\n"},"ID":25,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ConfirmEnemy","NodeData":{"Offset":"(-107.439743,234.965012)"},"ID":26,"Name":"Confirm
         Enemy","Instant":true,"SharedIntenemyCount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":1}},{"Type":"MoveAction","NodeData":{"Offset":"(125.035393,226.244461)"},"ID":27,"Name":"Move
@@ -264,3 +273,21 @@ MonoBehaviour:
       Version: 1.7.11
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
+--- !u!114 &-7102654378141252036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108452871360395106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1746ee3dc8536c4db0cf600af67d538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  animator: {fileID: 0}
+  index: 0
+  target: {fileID: 0}
+  coolTimeList: []
+  currentCoolTimeList: []

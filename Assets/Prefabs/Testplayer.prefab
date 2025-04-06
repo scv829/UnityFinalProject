@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8953579740882222542}
   - component: {fileID: 8953579740882222536}
   - component: {fileID: 8953579740882222537}
-  - component: {fileID: 8953579740882222538}
   - component: {fileID: 8953579740882222539}
+  - component: {fileID: 8953579740882222538}
+  - component: {fileID: 2678060727790277609}
   m_Layer: 6
   m_Name: Testplayer
   m_TagString: Player
@@ -147,12 +148,12 @@ MonoBehaviour:
         End Action","Instant":true,"SingleanimTime":0},{"Type":"BTEnableAction","NodeData":{"Offset":"(217.799377,261.602264)"},"ID":21,"Name":"BT
         Enable Action","Instant":true,"SharedBoolIsUseSkill":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsUseSkill","IsShared":true,"Tooltip":"\uc2a4\ud0ac\uc744
         \uc0ac\uc6a9\ud558\ub294\uc9c0","BooleanmValue":false},"SharedBoolIsBreak":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsBreak","IsShared":true,"IsGlobal":true,"Tooltip":"\ub300\uae30
-        \uc0c1\ud0dc\ub97c \uc54c\ub824\uc8fc\ub294 \ubcc0\uc218","BooleanmValue":false}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(368.5441,228.5437)","Comment":"\uc77c\ubc18
-        \uacf5\uaca9 \uc0c1\ud0dc"},"ID":22,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ConfirmAttactTarget","NodeData":{"Offset":"(-181.870651,204.371277)"},"ID":23,"Name":"Confirm
+        \uc0c1\ud0dc\ub97c \uc54c\ub824\uc8fc\ub294 \ubcc0\uc218","BooleanmValue":false}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(323.015625,261.876984)","Comment":"\uc77c\ubc18
+        \uacf5\uaca9 \uc0c1\ud0dc"},"ID":22,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ConfirmAttactTarget","NodeData":{"Offset":"(-151.870651,214.371277)"},"ID":23,"Name":"Confirm
         Attact Target","Instant":true,"SharedGameObjectTarget":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true,"Tooltip":"\uacf5\uaca9\ud560
-        \ub300\uc0c1"}},{"Type":"AttackAction","NodeData":{"Offset":"(1.47669983,348.432)"},"ID":24,"Name":"Attack
+        \ub300\uc0c1"}},{"Type":"AttackAction","NodeData":{"Offset":"(-4.33893967,277.4391)"},"ID":24,"Name":"Attack
         Action","Instant":true,"SharedGameObjectTarget":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true,"Tooltip":"\uacf5\uaca9\ud560
-        \ub300\uc0c1"},"SharedBoolIsMoveAnimStart":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsMove","IsShared":true,"BooleanmValue":false},"SharedStringAttackAnimationName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"Attack"}},{"Type":"AnimationEndAction","NodeData":{"Offset":"(204.40332,246.604)"},"ID":25,"Name":"Animation
+        \ub300\uc0c1"},"SharedBoolIsMoveAnimStart":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsMove","IsShared":true,"BooleanmValue":false}},{"Type":"AnimationEndAction","NodeData":{"Offset":"(151.152863,233.030914)"},"ID":25,"Name":"Animation
         End Action","Instant":true,"SingleanimTime":0}]}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(323.749969,206.874969)","Comment":"\uc774\ub3d9
         \uc0c1\ud0dc\n"},"ID":26,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ConfirmEnemy","NodeData":{"Offset":"(-107.439743,234.965012)"},"ID":27,"Name":"Confirm
         Enemy","Instant":true,"SharedIntenemyCount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":1}},{"Type":"MoveAction","NodeData":{"Offset":"(125.035393,226.244461)"},"ID":28,"Name":"Move
@@ -198,28 +199,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8953579740882222538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8953579740882222541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c190eb84863f84593b1af216bff605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: b38e48f444f05aa4cb96679c0940a667, type: 2}
-  animator: {fileID: 0}
-  render: {fileID: 0}
-  bt: {fileID: 0}
-  currentHp: 0
-  isInitComplete: 0
-  index: 0
-  target: {fileID: 0}
-  coolTimeList: []
-  currentCoolTimeList: []
 --- !u!61 &8953579740882222539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -246,3 +225,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.71875}
   m_EdgeRadius: 0
+--- !u!114 &8953579740882222538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953579740882222541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c190eb84863f84593b1af216bff605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  render: {fileID: 0}
+  bt: {fileID: 0}
+  characterData: {fileID: 11400000, guid: b38e48f444f05aa4cb96679c0940a667, type: 2}
+  HP: 0
+  ATK: 0
+  DEF: 0
+  moveSpeed: 0
+  currentHp: 0
+  isInitComplete: 0
+  skillHandler: {fileID: 2678060727790277609}
+  armors:
+  - {fileID: 11400000, guid: ce935798f86282749a743d1ac0bf6ad8, type: 2}
+  - {fileID: 11400000, guid: b2e7cbd515a44ba4fb36647519c97505, type: 2}
+  - {fileID: 11400000, guid: 787aec7d00d2b5e44adddd2113db6dd1, type: 2}
+  - {fileID: 11400000, guid: 10f2867e1dd6f9b4cbe9c1b68c6c39c3, type: 2}
+  - {fileID: 11400000, guid: 77f0f3687f7d8b74c84ab4de66480819, type: 2}
+  weapon: {fileID: 11400000, guid: 5137296477aca6b4e8abf28f44f350f7, type: 2}
+--- !u!114 &2678060727790277609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953579740882222541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1746ee3dc8536c4db0cf600af67d538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: ba080cc1470daa743ad0fcaed26e0ea8, type: 2}
+  animator: {fileID: 0}
+  index: 0
+  target: {fileID: 0}
+  coolTimeList: []
+  currentCoolTimeList: []
