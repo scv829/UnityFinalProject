@@ -1,16 +1,8 @@
-using Firebase;
-using Firebase.Database;
-using Firebase.Extensions;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
-using UnityEditor;
-using UnityEditor.Search;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// DB에서 데이터 로딩 및 관리하는 매니저
@@ -18,13 +10,6 @@ using UnityEngine.UIElements;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-
-
-    private FirebaseApp app;
-    public static FirebaseApp App => Instance.app;
-
-    private FirebaseDatabase database;
-    public static FirebaseDatabase Database => Instance.database;
 
     static string ipAddress = "127.0.0.1";
     static string db_id = "root";
@@ -38,8 +23,6 @@ public class DataManager : MonoBehaviour
     [SerializeField] int id;
     [Header("플레이어 선택")]
     [SerializeField] List<int> playerPick;
-
-    private Dictionary<int, CharacterData> casheData = new();
 
     private StringBuilder sb;
 
@@ -57,48 +40,20 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.Result == DependencyStatus.Available)
-            {
-                app = FirebaseApp.DefaultInstance;
-                database = FirebaseDatabase.DefaultInstance;
-
-                Debug.Log("Firebase dependencies check success");
-            }
-            else
-            {
-                Debug.LogError($"Could not resolve all Firebase dependencies: {task.Result}");
-
-                app = null;
-                database = null;
-            }
-        });
-
     }
 
-    public void GetPlayerCharacterData()
+    public List<(int, CharacterSO)> GetPlayerCharacterData()
     {
-        List<(int, CharacterData)> playerCharacterList = new();
+        // TODO: DB에서 캐릭터 데이터 가져오기
+        // GetPlayerCharacterDataInServer 사용하여 가져오기
+        List<(int, CharacterSO)> result = new();
 
-        // 플레이어가 선택한 캐릭터 -> 
-        // 들어가는 겂이 플레이어가 소지하고 있을 때의 ID인지, 캐릭터 고유 Id 기준인지
-        foreach(int id in playerPick)
+        foreach (int id in playerPick)
         {
-            // 이미 캐쉬가 되어있는 캐릭터라면
-            if(casheData.TryGetValue(id, out CharacterData data))
-            {
-                // 데이터를 가져오기
-                playerCharacterList.Add((id, data));
-            }
-            // 처음 들어오는 캐릭터라면
-            else
-            {
-                // 서버에서 데이터 가져오기
-                GetPlayerCharacterDataInServer(ref playerCharacterList, id);
-            }
+            result.Add((id, null));
         }
+
+        return result;
     }
 
     private void GetPlayerCharacterDataInServer(ref List<(int, CharacterData)> playerCharacterList, int index)
@@ -136,19 +91,17 @@ public class DataManager : MonoBehaviour
                 // 데이터를 담을 인스턴스 생성
                 CharacterData characterData = new();
 
-                while (rdr.Read()) 
+                while (rdr.Read())
                 {
                     sb.Clear();
 
                     sb.AppendLine($"캐릭터 데이터 id: {rdr["id"]} , name:  {rdr["name"]}, rarity: {rdr["rarity"]}, position: {rdr["position"]}");
                     sb.AppendLine($"캐릭터 기본 스탯 base_ATK: {rdr["base_ATK"]}, base_Hp:  {rdr["base_Hp"]}, base_Def: {rdr["base_Def"]},  base_AS: {rdr["base_AS"]}, base_ATKRange: {rdr["base_ATKRange"]}, base_MoveSpeed: {rdr["base_MoveSpeed"]}");
                     sb.AppendLine($"캐릭터 스탯 성장률 grow_hp: {rdr["grow_Hp"]}, grow_Def:  {rdr["grow_Def"]}, grow_ATK: {rdr["grow_ATK"]},  grow_Rarity: {rdr["grow_Rarity"]}");
-                
+
                     Debug.Log(sb.ToString());
                 }
                 rdr.Close();
-
-                casheData.Add(index, characterData);
             }
         }
         catch (Exception ex)
@@ -159,6 +112,37 @@ public class DataManager : MonoBehaviour
         {
             SqlConn.Close();
         }
+    }
+
+    // 현 스테이지에 대한 정보를 호출
+    public List<Round> GetStageData(int stageId)
+    {
+        // TODO: DB에서 라운드와 등장하는 몬스터 불러오기
+        List<Round> result = new();
+
+        Round r1 = new()
+        {
+            enemyList = new()
+            {   1   }
+        };
+
+        Round r2 = new()
+        {
+            enemyList = new()
+            {   1 , 1  }
+        };
+
+        Round r3 = new()
+        {
+            enemyList = new()
+            {   1, 1 , 1  }
+        };
+
+        result.Add(r1);
+        result.Add(r2);
+        result.Add(r3);
+
+        return result;
     }
 
 }
