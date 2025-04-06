@@ -24,7 +24,10 @@ public class SpawnPos : MonoBehaviour
     public Vector3 GetPos()
     {
         // 3 -> 2 -> 4 -> 1 -> 5
-        return (count >= pos.Length ) ? Vector3.zero : point[pos[count++]].position;
+        Debug.Log($"위치 호출! {count}");
+        return (count >= pos.Length ) ? Vector3.zero : point[pos[count++] - 1].position;
     }
+
+    public void ResetPosCount() => count = 0;
 
 }

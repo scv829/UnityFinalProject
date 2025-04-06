@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 몬스터 및 플레이어 캐릭터 생성하는 매니저
@@ -9,10 +9,13 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
-    [Header("캐릭터")]
+    [Header("주입")]
+    [SerializeField] BattleManager battleManager;
+
+    [Header("캐릭터 컨테이너")]
     [SerializeField] CharacterContainerSO containerSO;
-    [SerializeField] List<CharacterHandler> players;
-    [SerializeField] List<CharacterHandler> enemies;
+    [Header("적")]
+    [SerializeField] string data;
 
     [Header("플레이어 생성 위치")]
     [SerializeField] SpawnPos[] playerSpawnPos;
@@ -20,55 +23,51 @@ public class SpawnManager : MonoBehaviour
     [Header("적 생성 위치")]
     [SerializeField] SpawnPos[] EnemySpawnPos;
 
-    private void Start()
-    {
-        // 1. DB에 웨이브 및 출전 캐릭터 ID 배열 받기
-        // player = GetData();
-        // enemies = GetData();
 
-        // 2. Database에서 가져온 친구들의 데이터를 불러오기?
-        // 3. 불러온 캐릭터들의 데이터 설정
-    }
 
-    public void PlayerInit(List<long> playerCharacters)
+    public void SpawnPlayerCharacter(int id, CharacterSO data, ref List<GameObject> playerList)
     {
-        foreach (var item in players)
-        {
-           // for (int i = 0; i < item.y; i++) SetPlayerCharacter((int)item);
-        }
-    }
-
-    public void EnemyInit(List<long> enemyCharacters)
-    {
-        foreach (var item in enemyCharacters)
-        {
-            SetEnemyCharater(item);
-        }
-    }
-
-    /// <summary>
-    /// 플레이어 캐릭터 세팅 함수
-    /// </summary>
-    /// <param name="index">캐릭터 ID</param>
-    private void SetPlayerCharacter(int index)
-    {
-        CharacterHandler character = Instantiate(containerSO.GetCharacter(index));
+        // DataManger가 호출
+        // 플레이어 캐릭터 생성
+        CharacterHandler character = Instantiate(containerSO.GetCharacter(id));
+        // 데이터 설정
+        character.Data = data;
+        // BattleManager 생성
+        character.BattleManager = battleManager;
+        // 생존 리스트에 추가
+        playerList.Add(character.gameObject);
+        // 설정 완료
         character.Init("Player");
-        // 위치 설정을 어떻게?
-        character.gameObject.transform.position = playerSpawnPos[0].GetPos();
     }
 
-    /// <summary>
-    /// 적 캐릭터 세팅 함수
-    /// </summary>
-    /// <param name="index">캐릭터 ID</param>
-    private void SetEnemyCharater(long index)
+    public void SpawnEnemyCharacter(Round round, ref List<GameObject> enemyList)
     {
-        CharacterHandler character = Instantiate(containerSO.GetCharacter((int)index));
-        character.SetData();
-        
-        character.gameObject.transform.position = EnemySpawnPos[2].GetPos();
-        character.Init("Enemy");
+        // StageManager가 호출
+        // 라운드의 인덱스를 받아서 생성
+        // 적 캐릭터 생성
+
+        CharacterHandler character;
+
+        foreach (int id in round.enemyList)
+        {
+            character = Instantiate(containerSO.GetCharacter(id));
+
+            character.gameObject.transform.position = EnemySpawnPos[character.SpawnPos].GetPos();
+            character.BattleManager = battleManager;
+
+            enemyList.Add(character.gameObject);
+
+            character.Init("Enemy");
+        }
     }
 
+    public void ResetPlayerSpawnPosCount()
+    {
+        foreach(var item in playerSpawnPos) item.ResetPosCount();
+    }
+
+    public void ResetPlayerCharacterPos(GameObject requester)
+    {
+        requester.transform.position = playerSpawnPos[requester.GetComponent<CharacterHandler>().SpawnPos].GetPos();
+    }
 }
