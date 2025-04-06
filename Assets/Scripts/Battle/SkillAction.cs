@@ -23,7 +23,7 @@ public class SkillAction : Action
 		IsUseSkill.Value = true;
 		IsBreak.Value = true;
 
-		characterHandler.SkillAction(in CanUseSkill.index, Target.Value);
+		characterHandler.UseSkill(in CanUseSkill.index, Target.Value);
 
 		return TaskStatus.Success;
 	}
