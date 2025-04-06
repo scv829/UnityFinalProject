@@ -17,12 +17,15 @@ public class CanAttackEnemy : Conditional
     [SerializeField] Vector2 range;
     private Vector2 pos;
     private SpriteRenderer renderer;
+    private CharacterHandler handler;
 
     public override void OnAwake()
     {
-        range = new Vector2(1f, 7.5f);
         characters = new Collider2D[10];
         renderer = GetComponent<SpriteRenderer>();
+        handler = GetComponent<CharacterHandler>();
+        range = new Vector2(handler.AttackRange, 7.5f);
+        attackRange = handler.AttackRange;
     }
 
     public override void OnEnd()
@@ -48,10 +51,10 @@ public class CanAttackEnemy : Conditional
         for(int i = 0; i < characters.Length; i++) characters[i] = null;
 
         // 공격 범위
-        range = new Vector2(attackRange, 7.5f);
+        range = new Vector2(handler.AttackRange, 7.5f);
 
         // 탐색할 위치 = 현재 캐릭터의 위치(x) + 공격 범위의 반절
-        pos = new Vector2(transform.position.x + attackRange * (renderer.flipX ? -1f : 1f), 0f);
+        pos = new Vector2(transform.position.x + handler.AttackRange * 0.5f * (renderer.flipX ? -1f : 1f), 0f);
 
         // 공격 범위에 들어온 캐릭터의 수
         int count = Physics2D.OverlapBoxNonAlloc(
@@ -82,7 +85,18 @@ public class CanAttackEnemy : Conditional
     {
 #if UNITY_EDITOR
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(new Vector2( Owner.transform.position.x + (Owner.GetComponent<SpriteRenderer>().flipX ? -1f : 1f), 0f), (Vector2.right * (Owner.CompareTag("Player") ? 1 : -1) + Vector2.up * 7.5f));
+
+        // 공격 범위 크기
+        Vector2 attackSize = new Vector2(Owner.GetComponent<CharacterHandler>().AttackRange, 7.5f);
+
+        // flipX 상태에 따라 Gizmos 위치 조정
+        float direction = Owner.GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
+        float offsetX = direction * attackSize.x / 2f; // 중심 기준으로 반만 이동해야 함
+
+        Vector2 gizmoPosition = new Vector2(Owner.transform.position.x + offsetX, 0f);
+
+        // 크기는 항상 양수로 유지해야 함
+        Gizmos.DrawWireCube(gizmoPosition, attackSize);
 #endif
     }
 
